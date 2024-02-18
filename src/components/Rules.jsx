@@ -2,7 +2,7 @@ const Rules = () => {
     return (
         <div className="bg-white p-6 rounded-lg overflow-auto max-h-96">
             <h2 className="text-2xl font-bold mb-4">Règles du Jeu</h2>
-            <p className="text-lg mb-4">Bienvenue dans le jeu Timeline ! Voici les règles du jeu :</p>
+            <p className="text-lg mb-4">Bienvenue dans le jeu TikTakLine ! Voici les règles du jeu :</p>
             <ol className="list-decimal pl-6">
                 <li className="mb-2">
                     <strong>Objectif :</strong> Mettez vos connaissances historiques à l'épreuve en plaçant les cartes dans l'ordre chronologique correct sur la ligne de temps.
