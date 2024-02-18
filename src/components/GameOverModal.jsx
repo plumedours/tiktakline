@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import { copyToClipboard } from "@phntms/react-share";
@@ -11,13 +12,13 @@ import Replay from '../assets/replay.png';
 import GameOverImg from '../assets/gameover-text.png';
 import ScoreText from '../assets/score-text.png';
 
-const GameOverModal = ({ score }) => {
+const GameOverModal = ({ score, resetGame }) => {
     const [copied, setCopied] = useState(false);
     const textToShare = `Hey ! J'ai obtenu un score de ${score} sur le jeu ! Viens l'essayer toi aussi !`;
     const url = 'https://votre-url-du-jeu.com'; // Remplacez par l'URL de votre jeu
 
     const handleReplay = () => {
-        window.location.reload();
+        resetGame();
     }
 
     const handleCopyToClipboard = () => {
@@ -84,3 +85,8 @@ const GameOverModal = ({ score }) => {
 }
 
 export default GameOverModal;
+
+GameOverModal.propTypes = {
+    resetGame: PropTypes.func.isRequired,
+    score: PropTypes.number.isRequired
+};

@@ -1,13 +1,12 @@
 import { useState, useRef } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Logo from '../assets/logo.png';
 
-const Navbar = ({ openModalRules, openModalAbout, openModalContact }) => {
+const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame }) => {
   const [navOpen, setNavOpen] = useState(false);
-  const navigate = useNavigate();
-
   const navRef = useRef();
 
   const toggleNav = () => {
@@ -17,14 +16,6 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact }) => {
   const closeNav = () => {
     setNavOpen(false);
   };
-
-  const handleReplay = () => {
-    window.location.reload();
-  }
-
-  const goHome = () => {
-    navigate('/');
-  }
 
   return (
     <div className='relative bg-my-gray-dark text-white'>
@@ -47,9 +38,9 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact }) => {
 
         {/* Desktop Navigation */}
         <ul className='hidden md:flex space-x-4'>
-          <NavItem text='Acceuil' onClick={goHome} />
+          <NavItem text='Acceuil' to="/" />
           <NavItem text='Règles' onClick={openModalRules} />
-          <NavItem text='Rejouer' />
+          <NavItem text='Rejouer' to="/game" onClick={resetGame} />
           <NavItem text='À propos' onClick={openModalAbout} />
           <NavItem text='Contact' onClick={openModalContact} />
         </ul>
@@ -64,12 +55,15 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact }) => {
         <div className='max-w-screen-lg mx-auto py-4'>
           <img src={Logo} alt='logo' className='w-36' />
           <ul className='space-y-2'>
-            <NavItem text='Acceuil' onClick={closeNav} />
+            <NavItem text='Acceuil' to="/" onClick={closeNav} />
             <NavItem text='Règles' onClick={() => {
               closeNav();
               openModalRules();
             }} />
-            <NavItem text='Rejouer' onClick={handleReplay} />
+            <NavItem text='Rejouer' to="/game" onClick={() => {
+              closeNav();
+              resetGame();
+            }} />
             <NavItem text='À propos' onClick={() => {
               closeNav();
               openModalAbout();
@@ -85,12 +79,25 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact }) => {
   );
 };
 
-const NavItem = ({ text, onClick }) => {
+const NavItem = ({ text, to, onClick }) => {
   return (
     <li className='cursor-pointer hover:bg-my-blue-light hover:rounded-md py-2 px-4 hover:text-my-gray-dark font-bold' onClick={onClick}>
-      {text}
+      <Link to={to}>{text}</Link>
     </li>
   );
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  openModalRules: PropTypes.func.isRequired,
+  openModalAbout: PropTypes.func.isRequired,
+  openModalContact: PropTypes.func.isRequired,
+  resetGame: PropTypes.func.isRequired,
+};
+
+NavItem.propTypes = {
+  text: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+};

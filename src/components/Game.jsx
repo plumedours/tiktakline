@@ -178,9 +178,25 @@ const Game = () => {
         }
     }
 
+    const resetGame = () => {
+        // Réinitialisation des états du jeu
+        setScore(0);
+        setLives(5);
+        setMessage("");
+        setGameOver(false);
+
+        // Réinitialisation des cartes en main et des cartes en jeu dans le deck
+        const shuffledCards = shuffle(cards);
+        const initialCard = shuffledCards[0];
+        const remainingCards = shuffledCards.slice(1);
+        setTimelineCards([initialCard]);
+        setHand(remainingCards.slice(0, 4));
+        setDeck(remainingCards.slice(4));
+    };
+
     return (
         <div className='flex flex-col justify-center bg-my-green'>
-            <Navbar openModalRules={toggleModalRules} openModalAbout={toggleModalAbout} openModalContact={toggleModalContact} />
+            <Navbar openModalRules={toggleModalRules} openModalAbout={toggleModalAbout} openModalContact={toggleModalContact} resetGame={resetGame} />
             <div className="flex flex-col mt-5 items-center h-screen">
                 <div className="bg-gray-200 flex flex-col justify-center p-4 rounded-lg w-11/12 lg:w-10/12">
                     <div className="flex flex-row justify-evenly">
@@ -270,7 +286,7 @@ const Game = () => {
                     </div>
                 )}
             </div>
-            {gameOver && <GameOverModal score={score} />}
+            {gameOver && <GameOverModal score={score} resetGame={resetGame} />}
         </div>
     );
 }
