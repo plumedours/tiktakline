@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Doodle';
+    src: url('/src/assets/Fonts/Doodle.woff2') format('woff2'),
+         url('/src/assets/Fonts/Doodle.woff') format('woff');
+    /* Ajoutez les autres formats de police si nécessaire */
+    font-weight: normal;
+    font-style: normal;
+  }
