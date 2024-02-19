@@ -1,6 +1,6 @@
 const Rules = () => {
     return (
-        <div className="bg-white p-6 rounded-lg overflow-auto max-h-96">
+        <div className="overflow-auto max-h-96">
             <h2 className="text-2xl font-bold mb-4">Règles du Jeu</h2>
             <p className="text-lg mb-4">Bienvenue dans le jeu TikTakLine ! Voici les règles du jeu :</p>
             <ol className="list-decimal pl-6">
@@ -14,6 +14,7 @@ const Rules = () => {
                         <li>Placez-la où vous pensez qu'elle appartient sur la ligne de temps.</li>
                         <li>Gagnez un point si la carte est correctement placée.</li>
                         <li>Perdez un cœur si la carte est mal placée.</li>
+                        <li>Si vous pensez qu'une carte que vous avez en main a la même année qu'une carte en jeu, vous pouvez la placer avant ou après celle-ci. Si vous avez raison, vous gagnez un point.</li>
                     </ol>
                 </li>
                 <li className="mb-2">

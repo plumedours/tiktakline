@@ -1,12 +1,19 @@
+import PropTypes from "prop-types";
+
 import About from "./About";
+import CloseButton from "./CloseButton";
 
 const AboutModal = ({ closeModal }) => {
     return (
         <div className="bg-white p-4 rounded-lg w-11/12 md:max-w-md">
+            <CloseButton onClick={closeModal} />
             <About />
-            <button className="mt-4 bg-my-gray-dark text-white py-2 px-4 rounded hover:bg-my-gray transition-all" onClick={closeModal}>Fermer</button>
         </div>
     );
 };
 
-export default AboutModal;  
+export default AboutModal;
+
+AboutModal.propTypes = {
+    closeModal: PropTypes.func,
+};

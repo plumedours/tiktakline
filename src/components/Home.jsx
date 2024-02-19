@@ -6,6 +6,7 @@ import PlayText from '../assets/play-text.png';
 import RulesText from '../assets/rules-text.png';
 import AboutText from '../assets/about-text.png';
 import ContactText from '../assets/contact-text.png';
+import CardsText from '../assets/cards-text.png';
 
 import RulesModal from './RulesModal';
 import AboutModal from './AboutModal';
@@ -30,20 +31,23 @@ const Home = () => {
 
     return (
         <div className='bg-my-green h-screen flex flex-col justify-center items-center'>
-            <div className='flex flex-col items-center h-full p-5'>
+            <div className='flex flex-col items-center h-full p-5 gap-4'>
                 <img src={Logo} alt='logo' className='w-96 mb-20' />
                 <Link to="/game">
-                    <img src={PlayText} alt='play' className='w-28 mb-8 hover:rotate-12 hover:scale-125 transition-all' />
+                    <img src={PlayText} alt='play' className='w-28 hover:rotate-12 hover:scale-125 transition-all' />
                 </Link>
                 <div className='cursor-pointer' onClick={toggleModalRules}>
-                    <img src={RulesText} alt='rules' className='w-28 mb-8 hover:-rotate-12 hover:scale-125 transition-all' />
+                    <img src={RulesText} alt='rules' className='w-28 hover:-rotate-12 hover:scale-125 transition-all' />
                 </div>
                 <div className='cursor-pointer' onClick={toggleModalAbout}>
-                    <img src={AboutText} alt='about' className='w-28 mb-8 hover:rotate-12 hover:scale-125 transition-all' />
+                    <img src={AboutText} alt='about' className='w-28 hover:rotate-12 hover:scale-125 transition-all' />
                 </div>
                 <div className='cursor-pointer' onClick={toggleModalContact}>
-                    <img src={ContactText} alt='contact' className='w-28 mb-8 hover:rotate-12 hover:scale-125 transition-all' />
+                    <img src={ContactText} alt='contact' className='w-28 hover:-rotate-12 hover:scale-125 transition-all' />
                 </div>
+                <Link to="/cards">
+                    <img src={CardsText} alt='cards' className='w-28 hover:rotate-12 hover:scale-125 transition-all' />
+                </Link>
                 {showModalContact && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                         <ContactModal closeModal={toggleModalContact} />

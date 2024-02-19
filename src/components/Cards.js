@@ -46,8 +46,8 @@ const cards = [
     { theme: "Inventions", item: "Énergie nucléaire", year: 1896, img: "/assets/cards/nucleaire.jpg" },
     { theme: "Inventions", item: "Énergie hydroélectrique", year: 1882, img: "/assets/cards/hydroelec.jpg" },
     { theme: "Inventions", item: "SpaceX", year: 2002, img: "/assets/cards/spacex.jpg" },
-    { theme: "Inventions", item: "Premiers Homo sapiens", year: -300000, img: "/assets/cards/homosapien.jpg" },
-    { theme: "Inventions", item: "Exploration spatiale", year: 1957, img: "/assets/cards/space-explorer.jpg" }
+    { theme: "Histoire", item: "Premiers Homo sapiens", year: -300000, img: "/assets/cards/homosapien.jpg" },
+    { theme: "Histoire", item: "Exploration spatiale", year: 1957, img: "/assets/cards/space-explorer.jpg" }
 ];
 
 export default cards;

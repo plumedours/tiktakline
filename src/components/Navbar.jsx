@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Logo from '../assets/logo.png';
@@ -8,6 +8,7 @@ import Logo from '../assets/logo.png';
 const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame }) => {
   const [navOpen, setNavOpen] = useState(false);
   const navRef = useRef();
+  const location = useLocation();
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
@@ -27,7 +28,9 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
       )}
 
       <div className='max-w-screen-lg mx-auto flex justify-between items-center px-4 py-3'>
-        <img src={Logo} alt='logo' className='w-40' />
+        <Link to="/">
+          <img src={Logo} alt='logo' className='w-40' />
+        </Link>
 
         {/* Mobile Navigation Icon */}
         <div className='md:hidden'>
@@ -40,7 +43,7 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
         <ul className='hidden md:flex space-x-4'>
           <NavItem text='Acceuil' to="/" />
           <NavItem text='Règles' onClick={openModalRules} />
-          <NavItem text='Rejouer' to="/game" onClick={resetGame} />
+          {location.pathname === "/game" && <NavItem text='Rejouer' to="/game" onClick={resetGame} />}
           <NavItem text='À propos' onClick={openModalAbout} />
           <NavItem text='Contact' onClick={openModalContact} />
         </ul>
@@ -53,17 +56,21 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
           }`}
       >
         <div className='max-w-screen-lg mx-auto py-4'>
-          <img src={Logo} alt='logo' className='w-36' />
+          <Link to="/" onClick={closeNav}>
+            <img src={Logo} alt='logo' className='w-36 mb-5' />
+          </Link>
           <ul className='space-y-2'>
             <NavItem text='Acceuil' to="/" onClick={closeNav} />
             <NavItem text='Règles' onClick={() => {
               closeNav();
               openModalRules();
             }} />
-            <NavItem text='Rejouer' to="/game" onClick={() => {
-              closeNav();
-              resetGame();
-            }} />
+            {location.pathname === "/game" && (
+              <NavItem text='Rejouer' to="/game" onClick={() => {
+                closeNav();
+                resetGame();
+              }} />
+            )}
             <NavItem text='À propos' onClick={() => {
               closeNav();
               openModalAbout();
@@ -93,11 +100,11 @@ Navbar.propTypes = {
   openModalRules: PropTypes.func.isRequired,
   openModalAbout: PropTypes.func.isRequired,
   openModalContact: PropTypes.func.isRequired,
-  resetGame: PropTypes.func.isRequired,
+  resetGame: PropTypes.func,
 };
 
 NavItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
+  text: PropTypes.string,
+  to: PropTypes.string,
   onClick: PropTypes.func,
 };
