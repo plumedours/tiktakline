@@ -1,4 +1,5 @@
 import { useState, useEffect, Fragment } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Dino from '../assets/dino.png';
 import Robot from '../assets/robot.png';
@@ -45,30 +46,10 @@ const Game = () => {
     const [showModalContact, setShowModalContact] = useState(false);
     const [gameOver, setGameOver] = useState(false);
     const [arrowCount, setArrowCount] = useState(3);
-    // const [timeLeft, setTimeLeft] = useState(20);
-    // const [modalMessage, setModalMessage] = useState("");
-    // const [showModalMessage, setShowModalMessage] = useState(false);
-
-    // Chronomètre START
-    // const startTimer = () => {
-    //     setTimeLeft(20);
-    // };
-
-    // useEffect(() => {
-    //     const timer = setInterval(() => {
-    //         setTimeLeft(prevTime => (prevTime > 0 ? prevTime - 1 : prevTime));
-    //     }, 1000);
-
-    //     return () => clearInterval(timer);
-    // }, []);
-
-    // useEffect(() => {
-    //     if (timeLeft === 0) {
-    //         setLives(prevLives => prevLives - 1);
-    //         setTimeLeft(20);
-    //     }
-    // }, [timeLeft]);
-    // Chronomètre END
+    const [selectedCardYear, setSelectedCardYear] = useState(0);
+    const [showThemePopup, setShowThemePopup] = useState(true);
+    const [selectedTheme, setSelectedTheme] = useState("All");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -128,13 +109,14 @@ const Game = () => {
     }
 
     useEffect(() => {
-        const shuffledCards = shuffle(cards);
+        const filteredCards = selectedTheme === "All" ? cards : cards.filter(card => card.theme === selectedTheme);
+        const shuffledCards = shuffle(filteredCards);
         const initialCard = shuffledCards[0];
         const remainingCards = shuffledCards.slice(1);
         setTimelineCards([initialCard]);
         setHand(remainingCards.slice(0, 4));
         setDeck(remainingCards.slice(4));
-    }, []);
+    }, [selectedTheme]);
 
     const selectCard = (card) => {
         if (selectedCard === card) {
@@ -142,6 +124,7 @@ const Game = () => {
             setMessage("");
         } else {
             setMessage("Vous avez sélectionné : " + card.item);
+            setSelectedCardYear(card.year);
             setSelectedCard(card); // Sinon, on sélectionne la nouvelle carte
         }
     }
@@ -192,11 +175,30 @@ const Game = () => {
         setTimelineCards([initialCard]);
         setHand(remainingCards.slice(0, 4));
         setDeck(remainingCards.slice(4));
+
+        setShowThemePopup(true);
+        setSelectedTheme("All");
+    };
+
+    const handleThemeSelect = (theme) => {
+        setSelectedTheme(theme);
+        setShowThemePopup(false);
+    };
+
+    const handleReplay = () => {
+        resetGame();
+        setShowThemePopup(true);
+    };
+
+    const handlePlay = () => {
+        // Rediriger vers la route /game avec le thème sélectionné
+        handleThemeSelect(selectedTheme);
+        navigate(`/game/${selectedTheme}`);
     };
 
     return (
         <div className='flex flex-col justify-center bg-my-green'>
-            <Navbar openModalRules={toggleModalRules} openModalAbout={toggleModalAbout} openModalContact={toggleModalContact} resetGame={resetGame} />
+            <Navbar openModalRules={toggleModalRules} openModalAbout={toggleModalAbout} openModalContact={toggleModalContact} resetGame={handleReplay} />
             <div className="flex flex-col mt-5 items-center h-screen">
                 <div className="bg-gray-200 flex flex-col justify-center p-4 rounded-lg w-11/12 lg:w-10/12">
                     <div className="flex flex-row justify-evenly">
@@ -232,7 +234,12 @@ const Game = () => {
                                     'bg-my-orange'
                                 }`}
                         >
-                            {message}
+                            {message.startsWith("Vous avez sélectionné") ? // Si c'est un message de sélection de carte
+                                message :
+                                message.startsWith("Bonne réponse !") ? // Si c'est un message de bonne réponse
+                                    `Bonne réponse ! C'était en ${selectedCardYear}` :
+                                    `Mauvaise réponse ! C'était en ${selectedCardYear}` // Sinon, c'est un message de mauvaise réponse
+                            }
                         </div>
                     )}
                     <div className="flex justify-start items-center overflow-x-auto px-2" style={{ maxWidth: '100%' }}>
@@ -285,8 +292,34 @@ const Game = () => {
                         <ContactModal closeModal={toggleModalContact} />
                     </div>
                 )}
+                {showThemePopup && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                        <div className="bg-white p-6 rounded-md shadow-lg flex flex-col items-center">
+                            <h2 className="text-xl font-semibold mb-4">Choisissez un thème :</h2>
+                            <select
+                                value={selectedTheme}
+                                onChange={(e) => setSelectedTheme(e.target.value)}
+                                className="bg-white text-gray-800 p-2 rounded-md mb-4"
+                            >
+                                <option value="All">Tous les thèmes</option>
+                                <option value="Inventions">Inventions</option>
+                                <option value="Monuments">Monuments</option>
+                                <option value="Personnalités">Personnages</option>
+                                <option value="Musique">Musique</option>
+                                <option value="Histoire">Histoire</option>
+                            </select>
+                            <button
+                                onClick={handlePlay}
+                                className="bg-my-blue hover:bg-my-blue-dark text-white font-semibold py-2 px-4 rounded-md transition duration-300"
+                            >
+                                Jouer
+                            </button>
+                        </div>
+                    </div>
+                )}
+
             </div>
-            {gameOver && <GameOverModal score={score} resetGame={resetGame} />}
+            {gameOver && <GameOverModal score={score} resetGame={handleReplay} />}
         </div>
     );
 }

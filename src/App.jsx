@@ -13,6 +13,12 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/game" element={<Game />} />
+              <Route path="/game/All" element={<Game theme="All" />} />
+              <Route path="/game/Inventions" element={<Game theme="Inventions" />} />
+              <Route path="/game/Monuments" element={<Game theme="Monuments" />} />
+              <Route path="/game/Musique" element={<Game theme="Musique" />} />
+              <Route path="/game/Histoire" element={<Game theme="Histoire" />} />
+              <Route path="/game/Personnalités" element={<Game theme="Personnalités" />} />
               <Route path="/cards" element={<CardsList />} />
             </Routes>
           </div>

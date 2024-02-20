@@ -43,7 +43,7 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
         <ul className='hidden md:flex space-x-4'>
           <NavItem text='Acceuil' to="/" />
           <NavItem text='Règles' onClick={openModalRules} />
-          {location.pathname === "/game" && <NavItem text='Rejouer' to="/game" onClick={resetGame} />}
+          {location.pathname === "/game" || location.pathname.startsWith("/game/") && <NavItem text='Rejouer' to="/game" onClick={resetGame} />}
           <NavItem text='À propos' onClick={openModalAbout} />
           <NavItem text='Contact' onClick={openModalContact} />
         </ul>
@@ -65,11 +65,14 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
               closeNav();
               openModalRules();
             }} />
-            {location.pathname === "/game" && (
-              <NavItem text='Rejouer' to="/game" onClick={() => {
-                closeNav();
-                resetGame();
-              }} />
+            {(location.pathname === "/game" || location.pathname.startsWith("/game/")) && (
+              <NavItem
+                text="Rejouer"
+                onClick={() => {
+                  resetGame();
+                  closeNav(); // Assurez-vous de définir la fonction closeNav où nécessaire
+                }}
+              />
             )}
             <NavItem text='À propos' onClick={() => {
               closeNav();
