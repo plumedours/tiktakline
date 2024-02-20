@@ -15,7 +15,7 @@ const About = () => {
                         Interface :
                         <ul className="list-disc pl-6">
                             <li>Police d'écriture : <a href="https://www.dafont.com/zuka-doodle.font" target="_blank" className="underline hover:text-my-blue-dark">dafont.com</a></li>
-                            <li>Icônes et images : <a href="https://icons8.fr" target="_blank" className="underline hover:text-my-blue-dark">icons8.fr</a>, <a href="https://www.freepik.com/" target="_blank" className="underline hover:text-my-blue-dark">freepik.com</a>, <a href="https://pixabay.com/fr/" target="_blank" className="underline hover:text-my-blue-dark">pixabay.com</a></li>
+                            <li>Icônes et images : <a href="https://icons8.fr" target="_blank" className="underline hover:text-my-blue-dark">icons8.fr</a>, <a href="https://unsplash.com/fr" target="_blank" className="underline hover:text-my-blue-dark">unsplash.com</a>, <a href="https://www.freepik.com/" target="_blank" className="underline hover:text-my-blue-dark">freepik.com</a>, <a href="https://pixabay.com/fr/" target="_blank" className="underline hover:text-my-blue-dark">pixabay.com</a></li>
                             <li>Couleurs : <a href="https://flatuicolors.com/palette/ca" target="_blank" className="underline hover:text-my-blue-dark">flatuicolors.com</a></li>
                         </ul>
                     </li>

@@ -17,6 +17,7 @@ import ContactModal from './ContactModal';
 import GameOverModal from './GameOverModal';
 import Navbar from './Navbar';
 import cards from './Cards'
+import Footer from './Footer';
 
 const images = [Arrow1, Arrow2, Arrow3, Arrow4, Arrow5, Arrow6];
 
@@ -270,7 +271,7 @@ const Game = () => {
                         {hand.map((card, index) => (
                             <button key={index} className={`bg-my-blue text-white pb-2 rounded-md hover:bg-my-orange hover:scale-95 mr-2 aspect-w-2 aspect-h-3 min-w-32 min-h-full max-w-48 transition-all flex flex-col items-start justify-center ${selectedCard === card ? 'bg-my-orange' : ''}`} onClick={() => selectCard(card)}>
                                 <img src={card.img} alt={card.item} className='w-full rounded-t-md' />
-                                <div className='flex flex-col justify-center w-full h-full'>
+                                <div className='flex flex-col justify-center w-full h-full px-1'>
                                     <p className='font-semibold text-center'>{card.item}</p>
                                 </div>
                             </button>
@@ -317,8 +318,8 @@ const Game = () => {
                         </div>
                     </div>
                 )}
-
             </div>
+            <Footer />
             {gameOver && <GameOverModal score={score} resetGame={handleReplay} />}
         </div>
     );

@@ -41,7 +41,7 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
 
         {/* Desktop Navigation */}
         <ul className='hidden md:flex space-x-4'>
-          <NavItem text='Acceuil' to="/" />
+          <NavItem text='Accueil' to="/" />
           <NavItem text='Règles' onClick={openModalRules} />
           {location.pathname === "/game" || location.pathname.startsWith("/game/") && <NavItem text='Rejouer' to="/game" onClick={resetGame} />}
           <NavItem text='À propos' onClick={openModalAbout} />
@@ -60,7 +60,7 @@ const Navbar = ({ openModalRules, openModalAbout, openModalContact, resetGame })
             <img src={Logo} alt='logo' className='w-36 mb-5' />
           </Link>
           <ul className='space-y-2'>
-            <NavItem text='Acceuil' to="/" onClick={closeNav} />
+            <NavItem text='Accueil' to="/" onClick={closeNav} />
             <NavItem text='Règles' onClick={() => {
               closeNav();
               openModalRules();
